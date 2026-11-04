@@ -6,25 +6,20 @@ type ValuesRotateGridProps = {
 };
 
 export function ValuesRotateGrid({ values }: ValuesRotateGridProps) {
-  const [first, second, third, fourth, fifth] = values;
-  if (!first || !second || !third || !fourth || !fifth) return null;
-
-  const top = [first, second];
-  const middle = [third, fourth];
-
   return (
-    <div className="grid gap-5 md:gap-6">
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-        {top.map((value, index) => (
-          <PrincipleCard key={value.title} value={value} origin={index + 1} />
-        ))}
-      </div>
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-        {middle.map((value, index) => (
-          <PrincipleCard key={value.title} value={value} origin={index + 3} />
-        ))}
-      </div>
-      <PrincipleCard value={fifth} origin={5} />
+    <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 md:h-full md:grid-cols-4 md:grid-rows-3 md:gap-4">
+      {values.map((value, index) => (
+        <PrincipleCard
+          key={value.title}
+          value={value}
+          origin={index + 1}
+          className={
+            index === values.length - 1
+              ? "md:col-span-2 md:col-start-2"
+              : "md:col-span-2"
+          }
+        />
+      ))}
     </div>
   );
 }

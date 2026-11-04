@@ -20,7 +20,12 @@ export default function ValuesPage() {
     <>
       <article className="bg-[#0B0A09] text-[#CDBBA8]">
         <PhilosophyHero eyebrow={hero.eyebrow} title={hero.title} crumbs={crumbs} image={photos.values} />
-        <PrincipleSequence values={values} quote={quote} image={photos.officeLounge} />
+        <PrincipleSequence
+          values={values}
+          quote={quote}
+          image={photos.officeLounge}
+          quoteImage={photos.sunLounge}
+        />
       </article>
       <JsonLd
         items={[
@@ -28,7 +33,7 @@ export default function ValuesPage() {
             page: valuesMeta,
             crumbs,
             image: photos.values,
-            images: [photos.officeLounge, ...valuePhotos],
+            images: [photos.officeLounge, photos.sunLounge, ...valuePhotos],
           }),
           valuesListSchema(values, valuesMeta.path),
         ]}

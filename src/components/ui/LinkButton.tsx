@@ -48,7 +48,7 @@ export function LinkButton({ href, children, variant = "primary", external, clas
   }
 
   return (
-    <Link href={href} scroll onClick={href.startsWith("#") ? undefined : scrollToPageTop} className={classes}>
+    <Link href={href} scroll onClick={href.includes("#") ? undefined : scrollToPageTop} className={classes}>
       {children}
       <ArrowIcon className="size-3.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none" />
     </Link>
