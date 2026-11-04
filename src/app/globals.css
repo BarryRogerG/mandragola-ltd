@@ -1,26 +1,103 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-paper: #fbf9f6;
+  --color-ivory: #f3efe8;
+  --color-charcoal: #1a1a1a;
+  --color-ink-soft: #5c5852;
+  --color-mist: #a39e96;
+  --color-line: #ddd8d0;
+  --color-forest: #1f4a3c;
+  --color-bronze: #8a6a3c;
+  --color-navy: #0e1726;
+  --color-gold: #c5a572;
+
+  --text-display: clamp(3rem, 2rem + 6vw, 6rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.02em;
+  --text-h2: clamp(2.25rem, 1.6rem + 2.4vw, 3.25rem);
+  --text-h2--line-height: 1.12;
+  --text-stat: clamp(3.25rem, 2rem + 4vw, 5.5rem);
+  --text-stat--line-height: 0.95;
+  --text-lead: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+  --text-lead--line-height: 1.7;
+
+  --container-content: 72rem;
+  --animate-fade-up: fade-up 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    overflow-x: clip;
+    scroll-padding-top: 9.5rem;
+  }
+
+  body {
+    @apply bg-paper font-sans text-base/relaxed text-ink-soft antialiased;
+    font-variant-numeric: lining-nums;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply text-balance text-charcoal;
+  }
+
+  p {
+    @apply text-pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring, var(--color-forest));
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-forest) 18%, white);
+    color: var(--color-charcoal);
+  }
+
+  [id] {
+    scroll-margin-top: 9.5rem;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 7.5rem;
+    }
+
+    [id] {
+      scroll-margin-top: 7.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-up {
+      animation: none;
+    }
+  }
 }
