@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowIcon, ExternalIcon } from "@/components/icons/Icons";
+import { scrollToPageTop } from "@/components/layout/RouteVisit";
 import { cn } from "@/lib/cn";
 
 type Variant = "primary" | "quiet" | "invert";
@@ -12,19 +13,29 @@ const variantClasses: Record<Variant, string> = {
 };
 
 type LinkButtonProps = {
-  href: string;
+  href?: string;
   children: ReactNode;
   variant?: Variant;
   external?: boolean;
   className?: string;
+  onClick?: () => void;
 };
 
-export function LinkButton({ href, children, variant = "primary", external, className }: LinkButtonProps) {
+export function LinkButton({ href, children, variant = "primary", external, className, onClick }: LinkButtonProps) {
   const classes = cn(
-    "group inline-flex min-h-11 items-center gap-2 text-sm font-medium tracking-wide",
+    "group inline-flex min-h-11 items-center gap-2 border-0 bg-transparent p-0 text-sm font-medium tracking-wide",
     variantClasses[variant],
     className,
   );
+
+  if (!href) {
+    return (
+      <button type="button" onClick={onClick} className={cn(classes, "cursor-pointer")} aria-haspopup={onClick ? "dialog" : undefined}>
+        {children}
+        <ArrowIcon className="size-3.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none" />
+      </button>
+    );
+  }
 
   if (external) {
     return (
@@ -37,7 +48,7 @@ export function LinkButton({ href, children, variant = "primary", external, clas
   }
 
   return (
-    <Link href={href} className={classes}>
+    <Link href={href} scroll onClick={href.startsWith("#") ? undefined : scrollToPageTop} className={classes}>
       {children}
       <ArrowIcon className="size-3.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none" />
     </Link>

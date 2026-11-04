@@ -75,7 +75,7 @@
     color: var(--color-charcoal);
   }
 
-  [id] {
+  [id]:not(#main):not(#page-title) {
     scroll-margin-top: 9.5rem;
   }
 
@@ -84,7 +84,7 @@
       scroll-padding-top: 7.5rem;
     }
 
-    [id] {
+    [id]:not(#main):not(#page-title) {
       scroll-margin-top: 7.5rem;
     }
   }

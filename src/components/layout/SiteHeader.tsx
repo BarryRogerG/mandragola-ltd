@@ -5,8 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { primaryNav, site } from "@/content/site";
+import { scrollToPageTop } from "@/components/layout/RouteVisit";
 import { cn } from "@/lib/cn";
-import { ContactModal } from "./ContactModal";
+import { useContact } from "./ContactProvider";
 import { DemoBanner } from "./DemoBanner";
 import { SiteNav } from "./SiteNav";
 
@@ -16,7 +17,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const overlay = overlayPaths.has(pathname);
   const [scrolled, setScrolled] = useState(false);
-  const [contactOpen, setContactOpen] = useState(false);
+  const { openContact } = useContact();
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 48);
@@ -32,8 +33,7 @@ export function SiteHeader() {
   const chrome = duskSolid ? "dusk" : solid ? "dark" : "light";
 
   return (
-    <>
-      <div
+    <div
         className={cn(
           "fixed top-0 left-0 z-50 w-full transition-[background-color,box-shadow,backdrop-filter,border-color] duration-300",
           duskSolid &&
@@ -47,7 +47,13 @@ export function SiteHeader() {
         <DemoBanner tone={chrome} />
         <header className={cn("px-6 md:px-20", solid ? "py-3.5 md:py-5" : "py-5 md:py-8")}>
           <div className="flex items-center justify-between">
-            <Link href="/" aria-label={`${site.name}, home`} className="inline-flex items-center py-2">
+            <Link
+              href="/"
+              scroll
+              onClick={scrollToPageTop}
+              aria-label={`${site.name}, home`}
+              className="inline-flex items-center py-2"
+            >
               <Image
                 src={logo.src}
                 width={logo.width}
@@ -61,11 +67,9 @@ export function SiteHeader() {
                 )}
               />
             </Link>
-            <SiteNav items={primaryNav} onContact={() => setContactOpen(true)} tone={chrome} />
+            <SiteNav items={primaryNav} onContact={openContact} tone={chrome} />
           </div>
         </header>
-      </div>
-      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
-    </>
+    </div>
   );
 }

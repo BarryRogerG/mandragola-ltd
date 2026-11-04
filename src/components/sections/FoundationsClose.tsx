@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import { useContact } from "@/components/layout/ContactProvider";
 import { LinkButton } from "@/components/ui/LinkButton";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { AtmospherePhoto } from "@/content/images";
@@ -18,6 +19,7 @@ type FoundationsCloseProps = {
 
 export function FoundationsClose({ id, title, kicker, body, image }: FoundationsCloseProps) {
   const reduceMotion = useReducedMotion();
+  const { openContact } = useContact();
 
   return (
     <section
@@ -36,16 +38,16 @@ export function FoundationsClose({ id, title, kicker, body, image }: Foundations
           alt={image.alt}
           fill
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[center_45%]"
         />
       </motion.div>
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-linear-to-r from-[#0F241C]/92 via-[#0F241C]/74 to-[#0F241C]/40"
+        className="absolute inset-0 bg-linear-to-r from-[#0F241C]/90 via-[#0F241C]/58 to-[#0F241C]/18"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-[#0F241C] to-transparent"
+        className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-[#0F241C]/80 to-transparent"
       />
 
       <div className="relative z-10 flex min-h-[32rem] items-end px-5 py-20 md:min-h-[40rem] md:px-8 md:py-28 lg:px-16 lg:py-32 xl:px-24">
@@ -59,7 +61,7 @@ export function FoundationsClose({ id, title, kicker, body, image }: Foundations
             </p>
             <p className="mt-8 max-w-2xl text-lead text-slate-300">{body}</p>
             <div className="mt-12 flex flex-wrap gap-8">
-              <LinkButton href="#contact" variant="invert">
+              <LinkButton variant="invert" onClick={openContact}>
                 Contact us
               </LinkButton>
               <LinkButton href="/values" variant="invert" className="text-white/70 hover:text-white">

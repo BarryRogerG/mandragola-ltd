@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { ContactProvider } from "@/components/layout/ContactProvider";
 import { RouteVisitProvider } from "@/components/layout/RouteVisit";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -48,12 +49,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${plusJakarta.variable} ${cormorant.variable}`}>
       <body className="flex min-h-dvh flex-col">
-        <SkipLink />
-        <SiteHeader />
-        <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
-          <RouteVisitProvider>{children}</RouteVisitProvider>
-        </main>
-        <SiteFooter />
+        <ContactProvider>
+          <SkipLink />
+          <SiteHeader />
+          <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
+            <RouteVisitProvider>{children}</RouteVisitProvider>
+          </main>
+          <SiteFooter />
+        </ContactProvider>
         <JsonLd items={[organizationSchema(), websiteSchema()]} />
       </body>
     </html>

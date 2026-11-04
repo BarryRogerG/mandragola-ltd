@@ -44,3 +44,20 @@ export const officialPages = {
   articles: `${officialUrl}/articles/`,
 } as const;
 
+export const footerCopy = {
+  contactHeading: "Contact Us",
+  quickAccessHeading: "Quick Access",
+  addressLine: "8 HaGavish Netanya, IL",
+  emailLabel: "Email:",
+  privacy: "Privacy Policy",
+  terms: "Terms of Use",
+} as const;
+
+export const quickAccess = [
+  { label: "Our Mission", href: "/our-mission" },
+  { label: "Expertise", href: officialPages.expertise, external: true },
+  { label: "Transactions", href: officialPages.transactions, external: true },
+  { label: "Values", href: "/values" },
+  { label: "Articles", href: officialPages.articles, external: true },
+] as const;
+

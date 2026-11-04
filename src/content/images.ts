@@ -52,11 +52,13 @@ export const photos = {
     credit: "Unsplash",
   },
   foundations: {
-    src: "/images/trials/03-philipp.jpg",
-    alt: "Warm-toned concrete walls forming a canyon toward a dusk sky.",
-    width: 6429,
-    height: 4286,
-    credit: "Philipp Dusel / Unsplash",
+    src: "/images/sunrise-over-golden-field.jpg",
+    alt: "Sun rising over a golden grain field, with trees along the horizon and a sky fading from blue to orange.",
+    width: 5923,
+    height: 3332,
+    credit: "Federico Respini / Unsplash",
+    sourceUrl: "https://unsplash.com/photos/sYffw0LNr7s",
+    licenseUrl: unsplashLicense,
   },
   values: {
     src: "/images/marble-lobby-corridor.jpg",

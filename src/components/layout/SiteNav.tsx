@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
+import { scrollToPageTop } from "@/components/layout/RouteVisit";
 import { cn } from "@/lib/cn";
 import type { NavItem } from "@/types/content";
 
@@ -44,8 +45,15 @@ export function SiteNav({ items, onContact, tone = "light" }: SiteNavProps) {
     }
   };
 
+  const goToPage = () => {
+    close();
+    scrollToPageTop();
+  };
+
   const linkProps = (item: NavItem) => ({
     href: item.href,
+    scroll: true as const,
+    onClick: goToPage,
     "aria-current": pathname === item.href ? ("page" as const) : undefined,
   });
 
@@ -114,7 +122,6 @@ export function SiteNav({ items, onContact, tone = "light" }: SiteNavProps) {
             <li key={item.href}>
               <Link
                 {...linkProps(item)}
-                onClick={close}
                 className={cn(
                   "flex min-h-12 items-center text-[11px] font-light tracking-[0.25em] uppercase",
                   light && "text-white/80 aria-[current=page]:text-white",

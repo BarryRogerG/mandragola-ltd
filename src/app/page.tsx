@@ -1,7 +1,6 @@
 import { CtaBand } from "@/components/sections/CtaBand";
 import { FeatureGrid } from "@/components/sections/FeatureGrid";
 import { Hero } from "@/components/sections/Hero";
-import { PageContact } from "@/components/sections/PageContact";
 import { PhotoSplit } from "@/components/sections/PhotoSplit";
 import { SplitSection } from "@/components/sections/SplitSection";
 import { StatsBand } from "@/components/sections/StatsBand";
@@ -94,8 +93,6 @@ export default function HomePage() {
         image={photos.team}
         imageSide="right"
       />
-
-      <PageContact tone="ivory" />
 
       <JsonLd items={[pageSchema({ page: homeMeta, crumbs, image: photos.hero })]} />
     </>

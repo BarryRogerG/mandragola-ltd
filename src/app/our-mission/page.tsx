@@ -2,7 +2,6 @@ import { ApproachSection } from "@/components/sections/ApproachSection";
 import { FoundationsClose } from "@/components/sections/FoundationsClose";
 import { ImpactSpread } from "@/components/sections/ImpactSpread";
 import { MissionHero } from "@/components/sections/MissionHero";
-import { PageContact } from "@/components/sections/PageContact";
 import { StoryNarrative } from "@/components/sections/StoryNarrative";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { photos } from "@/content/images";
@@ -64,9 +63,17 @@ export default function OurMissionPage() {
         image={photos.foundations}
       />
 
-      <PageContact tone="paper" />
-
-      <JsonLd items={[pageSchema({ page: missionMeta, type: "AboutPage", crumbs, image: photos.mission })]} />
+      <JsonLd
+        items={[
+          pageSchema({
+            page: missionMeta,
+            type: "AboutPage",
+            crumbs,
+            image: photos.mission,
+            images: [photos.foundations],
+          }),
+        ]}
+      />
     </>
   );
 }
