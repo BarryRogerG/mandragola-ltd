@@ -15,16 +15,17 @@ export function PhilosophyHero({ eyebrow, title, crumbs, image }: PhilosophyHero
   return (
     <header className="relative isolate min-h-dvh overflow-hidden bg-[#0B0A09]">
       <Image
+        key={image.src}
         src={image.src}
         alt={image.alt}
         fill
         priority
         sizes="100vw"
-        className="object-cover object-center"
+        className="object-cover object-[center_62%]"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-[#0B0A09]"
+        className="absolute inset-0 bg-linear-to-b from-black/62 via-black/32 to-[#0B0A09]"
       />
       <div className="relative z-10 flex min-h-dvh items-end px-6 pt-36 pb-24 md:px-20 md:pt-48 md:pb-40 lg:pb-48">
         <div className="w-full max-w-3xl">

@@ -5,6 +5,7 @@ import { Section, type SectionTone } from "@/components/ui/Section";
 
 type SplitSectionProps = {
   id: string;
+  sectionId?: string;
   eyebrow?: string;
   title: string;
   children: ReactNode;
@@ -12,9 +13,17 @@ type SplitSectionProps = {
   stickyHeading?: boolean;
 };
 
-export function SplitSection({ id, eyebrow, title, children, tone = "paper", stickyHeading }: SplitSectionProps) {
+export function SplitSection({
+  id,
+  sectionId,
+  eyebrow,
+  title,
+  children,
+  tone = "paper",
+  stickyHeading,
+}: SplitSectionProps) {
   return (
-    <Section tone={tone} labelledBy={id}>
+    <Section tone={tone} labelledBy={id} id={sectionId}>
       <div className="grid gap-8 lg:grid-cols-12 lg:gap-20">
         <div className="lg:col-span-5">
           <div className={stickyHeading ? "lg:sticky lg:top-36" : undefined}>

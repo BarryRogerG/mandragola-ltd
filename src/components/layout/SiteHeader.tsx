@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { primaryNav, site } from "@/content/site";
 import { scrollToPageTop } from "@/components/layout/RouteVisit";
 import { cn } from "@/lib/cn";
@@ -17,6 +17,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const overlay = overlayPaths.has(pathname);
   const [scrolled, setScrolled] = useState(false);
+  const chromeRef = useRef<HTMLDivElement>(null);
   const { openContact } = useContact();
 
   useEffect(() => {
@@ -24,6 +25,20 @@ export function SiteHeader() {
     update();
     window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
+  }, [pathname]);
+
+  useEffect(() => {
+    const chrome = chromeRef.current;
+    if (!chrome) return;
+
+    const publishOffset = () => {
+      document.documentElement.style.setProperty("--site-header-offset", `${chrome.offsetHeight}px`);
+    };
+
+    publishOffset();
+    const observer = new ResizeObserver(publishOffset);
+    observer.observe(chrome);
+    return () => observer.disconnect();
   }, [pathname]);
 
   const dusk = pathname === "/values";
@@ -34,6 +49,8 @@ export function SiteHeader() {
 
   return (
     <div
+        ref={chromeRef}
+        data-site-chrome
         className={cn(
           "fixed top-0 left-0 z-50 w-full transition-[background-color,box-shadow,backdrop-filter,border-color] duration-300",
           duskSolid &&
@@ -62,7 +79,7 @@ export function SiteHeader() {
                 loading="eager"
                 className={cn(
                   "w-auto",
-                  solid ? "h-8 md:h-9" : "h-10 md:h-12",
+                  solid ? "h-12 md:h-16" : "h-14 md:h-20",
                   !solid && "drop-shadow-[0_1px_16px_rgba(0,0,0,0.45)]",
                 )}
               />

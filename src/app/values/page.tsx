@@ -19,17 +19,17 @@ export default function ValuesPage() {
   return (
     <>
       <article className="bg-[#0B0A09] text-[#CDBBA8]">
-        <PhilosophyHero
-          eyebrow={hero.eyebrow}
-          title={hero.title}
-          crumbs={crumbs}
-          image={photos.values}
-        />
-        <PrincipleSequence values={values} quote={quote} images={valuePhotos} />
+        <PhilosophyHero eyebrow={hero.eyebrow} title={hero.title} crumbs={crumbs} image={photos.values} />
+        <PrincipleSequence values={values} quote={quote} image={photos.officeLounge} />
       </article>
       <JsonLd
         items={[
-          pageSchema({ page: valuesMeta, crumbs, image: photos.values, images: valuePhotos }),
+          pageSchema({
+            page: valuesMeta,
+            crumbs,
+            image: photos.values,
+            images: [photos.officeLounge, ...valuePhotos],
+          }),
           valuesListSchema(values, valuesMeta.path),
         ]}
       />

@@ -65,7 +65,12 @@ export function SiteFooter() {
               </li>
             ))}
             <li>
-              <button type="button" onClick={openContact} className={iconClass} aria-haspopup="dialog">
+              <button
+                type="button"
+                onClick={openContact}
+                className={cn(iconClass, "cursor-pointer")}
+                aria-haspopup="dialog"
+              >
                 <MailIcon className="size-5" />
                 <span className="sr-only">Contact us</span>
               </button>

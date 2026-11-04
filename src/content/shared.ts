@@ -15,6 +15,7 @@ export const contactCopy = {
     email: "Email",
     sector: "Sector",
     company: "Company",
+    message: "Message",
   },
   submit: "Lets Talk",
   demoNote: "This demonstration does not send messages.",

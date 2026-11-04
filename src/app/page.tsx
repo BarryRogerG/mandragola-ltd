@@ -1,4 +1,5 @@
 import { CtaBand } from "@/components/sections/CtaBand";
+import { ExploreHomeLink } from "@/components/sections/ExploreHomeLink";
 import { FeatureGrid } from "@/components/sections/FeatureGrid";
 import { Hero } from "@/components/sections/Hero";
 import { PhotoSplit } from "@/components/sections/PhotoSplit";
@@ -32,14 +33,17 @@ export default function HomePage() {
         lead={hero.lead}
         image={photos.hero}
         actions={
-          <LinkButton href="/our-mission" variant="invert">
-            Our Mission
-          </LinkButton>
+          <>
+            <ExploreHomeLink />
+            <LinkButton href="/our-mission" variant="invert">
+              Our Mission
+            </LinkButton>
+          </>
         }
       />
 
       <ScrollReveal>
-        <SplitSection id="intro-heading" eyebrow="Overview" title={intro.title}>
+        <SplitSection sectionId="home-content" id="intro-heading" eyebrow="Overview" title={intro.title}>
           <p className="text-lead">{intro.body}</p>
         </SplitSection>
       </ScrollReveal>
