@@ -9,7 +9,7 @@ The banner on every page reads:
 ## Pages
 
 | Route | Source |
-|---|---|
+| :--- | :--- |
 | `/` | Homepage |
 | `/our-mission` | [Our Mission](https://mandragolaltd.com/our-mission/) |
 | `/values` | [Values](https://mandragolaltd.com/values/) |
@@ -43,10 +43,11 @@ NEXT_PUBLIC_SITE_URL=https://your-demo.example
 - Tailwind CSS v4
 - Fully static pages (no database, auth or form submissions)
 - React Server Components by default. Client components are used for navigation, the demonstration contact dialog, count-up stats, and Framer Motion reveals.
+- **Interactive UI:** Dynamic Framer Motion scroll reveals, card hover lifting, and count-up statistics.
 
 ## Design
 
-The visual direction is **editorial minimalism**: warm paper, charcoal type, a restrained forest accent, and Cormorant Garamond with Plus Jakarta Sans.
+The visual direction is **dark editorial luxury**: smoked espresso backdrops (`#0B0A09`), champagne gold (`#C4A07A`, `#D4C5B0`), warm obsidian, and architectural glass photography, with Cormorant Garamond and Plus Jakarta Sans. Interior sections stay on warm paper, charcoal type, and a restrained forest accent.
 
 The original background video and full-bleed green panels are gone. Photography is architectural atmosphere only (Unsplash stills in `public/images/`). It does not depict Mandragola offices, holdings or transactions.
 
