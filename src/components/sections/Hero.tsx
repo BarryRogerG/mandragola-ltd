@@ -81,7 +81,7 @@ export function Hero({
 
   if (image) {
     return (
-      <section aria-labelledby="page-title" className="relative isolate h-dvh min-h-screen overflow-hidden">
+      <section aria-labelledby="page-title" className="relative isolate min-h-dvh overflow-hidden">
         <Image
           src={image.src}
           alt={image.alt}
@@ -113,9 +113,9 @@ export function Hero({
         )}
         <div
           className={cn(
-            "relative z-10 flex h-full px-6 md:px-20",
+            "relative z-10 flex min-h-dvh px-6 md:px-20",
             size === "home"
-              ? "items-end pb-16 md:pb-24 lg:pb-28"
+              ? "items-end pb-8 md:pb-24 lg:pb-28"
               : "items-end pt-36 pb-16 md:items-center md:pt-24 md:pb-24",
           )}
         >
@@ -207,14 +207,14 @@ function PhotoHeroCopy({
         {title}
       </h1>
       <p
-        className={cn("mt-4 max-w-xl text-lg font-light tracking-wide", leadClassName, animate && revealClass)}
+          className={cn("mt-3 max-w-xl text-lg font-light tracking-wide md:mt-4", leadClassName, animate && revealClass)}
         style={animate ? { animationDelay: "280ms" } : undefined}
       >
         {lead}
       </p>
       {actions ? (
         <div
-          className={cn("mt-8 flex flex-wrap gap-6", animate && revealClass)}
+          className={cn("mt-5 flex flex-wrap gap-6 md:mt-8", animate && revealClass)}
           style={animate ? { animationDelay: "420ms" } : undefined}
         >
           {actions}
