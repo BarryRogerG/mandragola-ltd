@@ -99,16 +99,19 @@ export function FeatureGrid({
                   />
                 </div>
               ) : null}
-              <article className={cn("relative p-7 md:p-8", !numbered && "pt-6 md:pt-7")}>
+              <article
+                className={cn(
+                  "relative px-7 md:px-8",
+                  numbered ? "py-5 md:py-6" : "pb-7 pt-6 md:pb-8 md:pt-7",
+                )}
+              >
                 <span
                   aria-hidden="true"
                   className="absolute inset-y-0 left-0 w-[3px] origin-top scale-y-0 bg-forest transition-transform duration-500 group-hover:scale-y-100 group-active:scale-y-100"
                 />
                 <div className="flex items-start justify-between gap-3">
                   {numbered ? (
-                    <span className="font-serif text-2xl font-light text-forest">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+                    <Heading level={3}>{item.title}</Heading>
                   ) : (
                     <h3 className="font-serif text-[1.65rem] font-normal leading-snug text-charcoal md:text-[1.85rem]">
                       {item.title}
@@ -120,11 +123,6 @@ export function FeatureGrid({
                     strokeWidth={1.5}
                   />
                 </div>
-                {numbered ? (
-                  <Heading level={3} className="mt-5">
-                    {item.title}
-                  </Heading>
-                ) : null}
                 <p className="mt-3 max-w-md leading-relaxed">{item.body}</p>
               </article>
             </motion.li>
