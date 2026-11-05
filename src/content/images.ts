@@ -101,12 +101,12 @@ export const valuePhotos = [
     licenseUrl: unsplashLicense,
   },
   {
-    src: "/images/stone-reception-wood-ceiling.jpg",
-    alt: "Stone reception desk under a slatted wood ceiling, with a beige sofa and armchairs on polished floors.",
-    width: 5000,
-    height: 2812,
-    credit: "Aalo Lens / Unsplash",
-    sourceUrl: "https://unsplash.com/photos/Ypv0MH4izf8",
+    src: "/images/lounge-globe-pendants.jpg",
+    alt: "Dim hotel lounge with a white curved sofa, red chairs, globe pendant lights, and tall windows.",
+    width: 2994,
+    height: 2005,
+    credit: "Timofey Radkevich / Unsplash",
+    sourceUrl: "https://unsplash.com/photos/hWWrF-XyQWk",
     licenseUrl: unsplashLicense,
   },
   {
