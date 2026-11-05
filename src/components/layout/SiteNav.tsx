@@ -47,17 +47,14 @@ export function SiteNav({ items, onContact, tone = "light" }: SiteNavProps) {
     }
   };
 
-  const goToPage = () => {
-    close();
-    scrollToPageTop();
-  };
-
   const linkProps = (item: NavItem) => ({
     href: item.href,
-    scroll: true as const,
+    scroll: false as const,
     onClick: (event: { preventDefault: () => void }) => {
-      if (item.href === pathname) event.preventDefault();
-      goToPage();
+      if (item.href !== pathname) return;
+      event.preventDefault();
+      close();
+      scrollToPageTop();
     },
     "aria-current": pathname === item.href ? ("page" as const) : undefined,
   });

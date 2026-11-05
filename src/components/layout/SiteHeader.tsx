@@ -55,8 +55,10 @@ export function SiteHeader() {
           <div className="flex items-center justify-between">
             <Link
               href="/"
-              scroll
-              onClick={scrollToPageTop}
+              scroll={false}
+              onClick={() => {
+                if (pathname === "/") scrollToPageTop();
+              }}
               aria-label={`${site.name}, home`}
               className="inline-flex items-center py-2"
             >

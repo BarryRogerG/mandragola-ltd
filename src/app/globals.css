@@ -46,7 +46,6 @@
   html {
     -webkit-text-size-adjust: 100%;
     overflow-x: clip;
-    scroll-padding-top: var(--site-header-offset, 6.5rem);
   }
 
   body {
@@ -77,12 +76,6 @@
 
   [id]:not(#main):not(#page-title) {
     scroll-margin-top: var(--site-header-offset, 6.5rem);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

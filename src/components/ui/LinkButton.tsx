@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowIcon, ExternalIcon } from "@/components/icons/Icons";
-import { scrollToPageTop } from "@/components/layout/RouteVisit";
 import { cn } from "@/lib/cn";
 
 type Variant = "primary" | "quiet" | "invert";
@@ -48,7 +47,7 @@ export function LinkButton({ href, children, variant = "primary", external, clas
   }
 
   return (
-    <Link href={href} scroll onClick={href.includes("#") ? undefined : scrollToPageTop} className={classes}>
+    <Link href={href} scroll={false} className={classes}>
       {children}
       <ArrowIcon className="size-3.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none" />
     </Link>

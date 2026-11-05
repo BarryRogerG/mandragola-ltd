@@ -6,9 +6,17 @@ import { usePathname } from "next/navigation";
 const RouteVisitContext = createContext(0);
 
 export function scrollToPageTop() {
-  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  window.scrollTo(0, 0);
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
+}
+
+function pinPageTop() {
+  if (window.location.hash) return;
+  if (window.scrollY === 0 && document.documentElement.scrollTop === 0 && document.body.scrollTop === 0) {
+    return;
+  }
+  scrollToPageTop();
 }
 
 /**
@@ -37,8 +45,21 @@ export function RouteVisitProvider({ children }: { children: ReactNode }) {
     if (window.location.hash) return;
 
     scrollToPageTop();
-    const frame = window.requestAnimationFrame(() => scrollToPageTop());
-    return () => window.cancelAnimationFrame(frame);
+
+    let frame2 = 0;
+    const frame1 = window.requestAnimationFrame(() => {
+      pinPageTop();
+      frame2 = window.requestAnimationFrame(pinPageTop);
+    });
+    const t0 = window.setTimeout(pinPageTop, 0);
+    const t1 = window.setTimeout(pinPageTop, 80);
+
+    return () => {
+      window.cancelAnimationFrame(frame1);
+      window.cancelAnimationFrame(frame2);
+      window.clearTimeout(t0);
+      window.clearTimeout(t1);
+    };
   }, [pathname]);
 
   return <RouteVisitContext.Provider value={visits.get(pathname) ?? 0}>{children}</RouteVisitContext.Provider>;

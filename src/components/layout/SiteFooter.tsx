@@ -31,7 +31,14 @@ export function SiteFooter() {
     <footer className="border-t border-line bg-ivory">
       <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-14">
         <div className="sm:col-span-2 lg:col-span-3">
-          <Link href="/" scroll onClick={scrollToPageTop} aria-label={`${site.name}, home`}>
+          <Link
+            href="/"
+            scroll={false}
+            onClick={() => {
+              if (pathname === "/") scrollToPageTop();
+            }}
+            aria-label={`${site.name}, home`}
+          >
             <Image src={logo.src} width={logo.width} height={logo.height} alt="" className="h-12 w-auto" />
           </Link>
         </div>
@@ -73,9 +80,10 @@ export function SiteFooter() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  scroll
+                  scroll={false}
                   onClick={(event) => {
-                    if (item.href === pathname) event.preventDefault();
+                    if (item.href !== pathname) return;
+                    event.preventDefault();
                     scrollToPageTop();
                   }}
                   className={linkClass}
