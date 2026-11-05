@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useContact } from "@/components/layout/ContactProvider";
 import { LinkButton } from "@/components/ui/LinkButton";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { AtmospherePhoto } from "@/content/images";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 const luxuryEase = [0.21, 0.47, 0.32, 0.98] as const;
 
@@ -18,7 +19,7 @@ type FoundationsCloseProps = {
 };
 
 export function FoundationsClose({ id, title, kicker, body, image }: FoundationsCloseProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
   const { openContact } = useContact();
 
   return (

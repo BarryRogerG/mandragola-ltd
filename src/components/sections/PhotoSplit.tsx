@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import type { AtmospherePhoto } from "@/content/images";
 import { cn } from "@/lib/cn";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 const luxuryEase = [0.21, 0.47, 0.32, 0.98] as const;
 
@@ -28,7 +29,7 @@ export function PhotoSplit({
   imageSide = "left",
   action,
 }: PhotoSplitProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
   const imageRight = imageSide === "right";
 
   return (

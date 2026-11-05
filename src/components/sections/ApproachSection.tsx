@@ -1,10 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Cpu, Globe, LineChart, Shield, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import type { AtmospherePhoto } from "@/content/images";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 const luxuryEase = [0.21, 0.47, 0.32, 0.98] as const;
 
@@ -32,7 +33,7 @@ export function ApproachSection({
   theatres,
   image,
 }: ApproachSectionProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   return (
     <section id="mission-content" aria-labelledby={id} className="overflow-hidden bg-paper">

@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { primaryNav, site } from "@/content/site";
 import { scrollToPageTop } from "@/components/layout/RouteVisit";
 import { cn } from "@/lib/cn";
+import { useScrolledPast } from "@/lib/useScrolledPast";
 import { useContact } from "./ContactProvider";
 import { DemoBanner } from "./DemoBanner";
 import { SiteNav } from "./SiteNav";
@@ -16,16 +17,9 @@ const overlayPaths = new Set(["/", "/our-mission", "/values"]);
 export function SiteHeader() {
   const pathname = usePathname();
   const overlay = overlayPaths.has(pathname);
-  const [scrolled, setScrolled] = useState(false);
+  const scrolled = useScrolledPast(48);
   const chromeRef = useRef<HTMLDivElement>(null);
   const { openContact } = useContact();
-
-  useEffect(() => {
-    const update = () => setScrolled(window.scrollY > 48);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, [pathname]);
 
   useEffect(() => {
     const chrome = chromeRef.current;
@@ -41,11 +35,9 @@ export function SiteHeader() {
     return () => observer.disconnect();
   }, [pathname]);
 
-  const dusk = pathname === "/values";
   const solid = !overlay || scrolled;
-  const duskSolid = dusk && solid;
-  const logo = !solid || duskSolid ? site.logo.light : site.logo.dark;
-  const chrome = duskSolid ? "dusk" : solid ? "dark" : "light";
+  const logo = solid ? site.logo.dark : site.logo.light;
+  const chrome = solid ? "dark" : "light";
 
   return (
     <div
@@ -53,10 +45,7 @@ export function SiteHeader() {
         data-site-chrome
         className={cn(
           "fixed top-0 left-0 z-50 w-full transition-[background-color,box-shadow,backdrop-filter,border-color] duration-300",
-          duskSolid &&
-            "border-b border-[#C4A07A]/20 bg-[#0B0A09]/90 shadow-[0_1px_0_rgba(0,0,0,0.35)] backdrop-blur-md [--focus-ring:#C4A07A]",
           solid &&
-            !duskSolid &&
             "border-b border-line/70 bg-paper/90 shadow-[0_1px_0_rgba(26,26,26,0.04)] backdrop-blur-md [--focus-ring:var(--color-forest)]",
           !solid && "border-b border-transparent bg-transparent [--focus-ring:white]",
         )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useLayoutEffect, useRef, type ReactNode } from "react";
+import { createContext, useContext, useLayoutEffect, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
 const RouteVisitContext = createContext(0);
@@ -18,12 +18,16 @@ export function scrollToPageTop() {
  */
 export function RouteVisitProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const previousPath = useRef(pathname);
-  const visits = useRef(new Map<string, number>());
+  const [previousPath, setPreviousPath] = useState(pathname);
+  const [visits, setVisits] = useState(() => new Map<string, number>());
 
-  if (previousPath.current !== pathname) {
-    visits.current.set(pathname, (visits.current.get(pathname) ?? 0) + 1);
-    previousPath.current = pathname;
+  if (previousPath !== pathname) {
+    setPreviousPath(pathname);
+    setVisits((current) => {
+      const next = new Map(current);
+      next.set(pathname, (current.get(pathname) ?? 0) + 1);
+      return next;
+    });
   }
 
   useLayoutEffect(() => {
@@ -37,7 +41,7 @@ export function RouteVisitProvider({ children }: { children: ReactNode }) {
     return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
-  return <RouteVisitContext.Provider value={visits.current.get(pathname) ?? 0}>{children}</RouteVisitContext.Provider>;
+  return <RouteVisitContext.Provider value={visits.get(pathname) ?? 0}>{children}</RouteVisitContext.Provider>;
 }
 
 export function useRouteVisit(): number {

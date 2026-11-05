@@ -42,15 +42,15 @@ NEXT_PUBLIC_SITE_URL=https://your-demo.example
 - Next.js 16 App Router, React 19, TypeScript (strict, `noUncheckedIndexedAccess`)
 - Tailwind CSS v4
 - Fully static pages (no database, auth or form submissions)
-- React Server Components by default. The only client component is `SiteNav` (mobile menu + current-page highlighting)
+- React Server Components by default. Client components are used for navigation, the demonstration contact dialog, count-up stats, and Framer Motion reveals.
 
 ## Design
 
-The visual direction is **editorial minimalism**: warm paper, charcoal type, a restrained forest accent, and Cormorant Garamond with Source Sans 3.
+The visual direction is **editorial minimalism**: warm paper, charcoal type, a restrained forest accent, and Cormorant Garamond with Plus Jakarta Sans.
 
 The original background video and full-bleed green panels are gone. Photography is architectural atmosphere only (Unsplash stills in `public/images/`). It does not depict Mandragola offices, holdings or transactions.
 
-Typography and colour tokens live in `src/app/globals.css`. The only client component is `SiteNav`.
+Typography and colour tokens live in `src/app/globals.css`.
 
 ## Content rules
 
@@ -59,7 +59,7 @@ Copy is taken from the original public website and lives in typed modules under 
 Deliberate omissions and limits:
 
 - **Team portraits** on the original homepage use placeholder names (Amanda Miler, John Smith, Elizabeth Williams). Those people are not shown here. The original team paragraph is kept.
-- **Contact form** is omitted (the brief disallows active form submissions). Contact is a `mailto:` link plus the published Netanya address.
+- **Contact form** is a demonstration dialog only. It does not send, store or persist messages. The footer also includes a `mailto:` link and the published Netanya address.
 - **Transaction cards** use only the one-line card text from the original Transactions page. The original detail pop-ups mostly repeat the DFSL/BiomX summary regardless of the deal, so they are not reproduced. Tessera is the name BiomX adopted on 11 September 2026; the original cards already use that name.
 - **Section labels** such as “What we do” and “How we work” are interface chrome, not company claims.
 
@@ -78,7 +78,7 @@ Deliberate omissions and limits:
 src/app/          routes, metadata, sitemap, robots, Open Graph image
 src/components/   layout, UI, page sections (server components unless noted)
 src/content/      verbatim copy and organisation facts
-src/lib/          metadata and JSON-LD helpers
+src/lib/          metadata, JSON-LD and small client hooks
 public/brand/     Mandragola logo (dark and white)
 public/images/    atmospheric architectural photographs
 public/logos/     company marks copied from the original site

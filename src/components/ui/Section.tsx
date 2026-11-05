@@ -16,7 +16,7 @@ type SectionProps = {
   id?: string;
   className?: string;
   containerClassName?: string;
-  spacing?: "default" | "compact" | "loose";
+  spacing?: "default" | "compact" | "loose" | "snug";
 };
 
 export function Section({
@@ -33,7 +33,9 @@ export function Section({
       ? "py-20 md:py-28 lg:py-32"
       : spacing === "compact"
         ? "py-14 md:py-20"
-        : "py-16 md:py-24 lg:py-28";
+        : spacing === "snug"
+          ? "pt-8 pb-16 md:pt-10 md:pb-24 lg:pb-28"
+          : "py-16 md:py-24 lg:py-28";
 
   return (
     <section id={id} aria-labelledby={labelledBy} className={cn(toneClasses[tone], padding, className)}>

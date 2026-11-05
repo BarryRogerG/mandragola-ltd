@@ -40,7 +40,7 @@ export function ContactModal({ open, onClose }: ContactModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-2.5 right-2.5 inline-flex size-11 cursor-pointer items-center justify-center text-mist transition-colors hover:text-charcoal"
+            className="absolute top-2.5 right-2.5 inline-flex size-11 cursor-pointer items-center justify-center text-ink-soft transition-colors hover:text-charcoal"
           >
             <CloseIcon className="size-4" />
             <span className="sr-only">Close</span>
@@ -68,7 +68,14 @@ export function ContactModal({ open, onClose }: ContactModalProps) {
             />
           </svg>
 
-          <form aria-label={contactCopy.title} aria-describedby={noteId} className="mt-5">
+          <form
+            aria-label={contactCopy.title}
+            aria-describedby={noteId}
+            className="mt-5"
+            onSubmit={(event) => {
+              event.preventDefault();
+            }}
+          >
             <label htmlFor="modal-contact-name" className="sr-only">
               {contactCopy.fields.name}
             </label>
@@ -154,7 +161,7 @@ export function ContactModal({ open, onClose }: ContactModalProps) {
                 {contactCopy.submit}
                 <ArrowIcon className="size-3.5" />
               </button>
-              <p id={noteId} className="max-w-sm text-xs leading-relaxed text-mist sm:text-right">
+              <p id={noteId} className="max-w-sm text-xs leading-relaxed text-ink-soft sm:text-right">
                 {contactCopy.demoNote}
               </p>
             </div>

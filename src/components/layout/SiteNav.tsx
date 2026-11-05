@@ -18,16 +18,18 @@ type SiteNavProps = {
 export function SiteNav({ items, onContact, tone = "light" }: SiteNavProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [menuPath, setMenuPath] = useState(pathname);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
   const light = tone === "light";
   const dusk = tone === "dusk";
 
-  const close = () => setOpen(false);
-
-  useEffect(() => {
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
     setOpen(false);
-  }, [pathname]);
+  }
+
+  const close = () => setOpen(false);
 
   useEffect(() => {
     if (!open) return;
@@ -53,12 +55,15 @@ export function SiteNav({ items, onContact, tone = "light" }: SiteNavProps) {
   const linkProps = (item: NavItem) => ({
     href: item.href,
     scroll: true as const,
-    onClick: goToPage,
+    onClick: (event: { preventDefault: () => void }) => {
+      if (item.href === pathname) event.preventDefault();
+      goToPage();
+    },
     "aria-current": pathname === item.href ? ("page" as const) : undefined,
   });
 
   const navLinkClass = cn(
-    "text-[11px] font-light tracking-[0.25em] uppercase transition-colors duration-300",
+    "inline-flex min-h-11 items-center text-[11px] font-light tracking-[0.25em] uppercase transition-colors duration-300",
     light && "text-white/80 hover:text-white aria-[current=page]:text-white",
     dusk && "text-[#CDBBA8] hover:text-[#F3EBE0] aria-[current=page]:text-[#C4A07A]",
     !light && !dusk && "text-charcoal/80 hover:text-charcoal aria-[current=page]:text-forest",
@@ -102,7 +107,7 @@ export function SiteNav({ items, onContact, tone = "light" }: SiteNavProps) {
           {open ? (
             <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" />
           ) : (
-            <path d="M4 8h16M4 16h16" strokeLinecap="round" />
+            <path d="M4 8h16M4 16h16" />
           )}
         </svg>
       </button>

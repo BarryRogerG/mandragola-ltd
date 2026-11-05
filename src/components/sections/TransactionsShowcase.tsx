@@ -1,12 +1,13 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
 import { LinkButton } from "@/components/ui/LinkButton";
 import { Section } from "@/components/ui/Section";
 import { cn } from "@/lib/cn";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import type { LogoAsset } from "@/types/content";
 
 const luxuryEase = [0.21, 0.47, 0.32, 0.98] as const;
@@ -30,7 +31,7 @@ export function TransactionsShowcase({
   moreHref,
   moreLabel,
 }: TransactionsShowcaseProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   return (
     <Section labelledBy={id} tone="ivory">

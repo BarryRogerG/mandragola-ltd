@@ -1,10 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { AtmospherePhoto } from "@/content/images";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 const luxuryEase = [0.21, 0.47, 0.32, 0.98] as const;
 
@@ -18,7 +19,7 @@ type CtaBandProps = {
 };
 
 export function CtaBand({ id, title, kicker, body, actions, image }: CtaBandProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   if (!image) {
     return (

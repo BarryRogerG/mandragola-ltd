@@ -17,25 +17,18 @@ const socialLinks = [
 ] as const;
 
 export function SiteFooter() {
+  const pathname = usePathname();
   const { openContact } = useContact();
-  const dark = usePathname() === "/values";
-  const logo = dark ? site.logo.light : site.logo.dark;
-  const muted = dark ? "text-[#CDBBA8]" : "text-ink-soft";
-  const headingClass = cn(
-    "border-b pb-2 text-sm font-medium",
-    dark ? "border-[#C4A07A]/25 text-[#F3EBE0]" : "border-line text-charcoal",
-  );
-  const linkClass = cn(
-    "inline-flex min-h-11 items-center gap-1.5 text-sm transition-colors md:min-h-9",
-    dark ? "text-[#CDBBA8] hover:text-[#C4A07A]" : "text-ink-soft hover:text-charcoal",
-  );
-  const iconClass = cn(
-    "inline-flex size-11 items-center justify-center rounded-sm transition-colors",
-    dark ? "text-[#CDBBA8] hover:text-[#C4A07A]" : "text-charcoal hover:text-forest",
-  );
+  const logo = site.logo.dark;
+  const muted = "text-ink-soft";
+  const headingClass = "border-b border-line pb-2 text-sm font-medium text-charcoal";
+  const linkClass =
+    "inline-flex min-h-11 items-center gap-1.5 text-sm text-ink-soft transition-colors hover:text-charcoal md:min-h-9";
+  const iconClass =
+    "inline-flex size-11 items-center justify-center rounded-sm text-charcoal transition-colors hover:text-forest";
 
   return (
-    <footer className={cn("border-t", dark ? "border-[#C4A07A]/20 bg-[#0B0A09]" : "border-line bg-ivory")}>
+    <footer className="border-t border-line bg-ivory">
       <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-14">
         <div className="sm:col-span-2 lg:col-span-3">
           <Link href="/" scroll onClick={scrollToPageTop} aria-label={`${site.name}, home`}>
@@ -50,7 +43,7 @@ export function SiteFooter() {
             {footerCopy.emailLabel}{" "}
             <a
               href={`mailto:${site.email}`}
-              className={cn("underline-offset-4 hover:underline", dark ? "text-[#E4D5C3]" : "text-charcoal")}
+              className="inline-flex min-h-11 items-center text-charcoal underline-offset-4 hover:underline"
             >
               {site.email}
             </a>
@@ -65,12 +58,7 @@ export function SiteFooter() {
               </li>
             ))}
             <li>
-              <button
-                type="button"
-                onClick={openContact}
-                className={cn(iconClass, "cursor-pointer")}
-                aria-haspopup="dialog"
-              >
+              <button type="button" onClick={openContact} className={cn(iconClass, "cursor-pointer")} aria-haspopup="dialog">
                 <MailIcon className="size-5" />
                 <span className="sr-only">Contact us</span>
               </button>
@@ -83,16 +71,17 @@ export function SiteFooter() {
           <ul className="mt-3">
             {quickAccess.map((item) => (
               <li key={item.href}>
-                {"external" in item && item.external ? (
-                  <a href={item.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                    {item.label}
-                    <span className="sr-only">(opens the official website in a new tab)</span>
-                  </a>
-                ) : (
-                  <Link href={item.href} scroll onClick={scrollToPageTop} className={linkClass}>
-                    {item.label}
-                  </Link>
-                )}
+                <Link
+                  href={item.href}
+                  scroll
+                  onClick={(event) => {
+                    if (item.href === pathname) event.preventDefault();
+                    scrollToPageTop();
+                  }}
+                  className={linkClass}
+                >
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ul>
@@ -106,8 +95,8 @@ export function SiteFooter() {
         </div>
       </Container>
 
-      <div className={cn("border-t", dark ? "border-[#C4A07A]/20" : "border-line")}>
-        <Container className={cn("py-5 text-xs", dark ? "text-[#CDBBA8]/70" : "text-mist")}>
+      <div className="border-t border-line">
+        <Container className="py-5 text-xs text-ink-soft">
           <p>{site.demoNotice}</p>
         </Container>
       </div>

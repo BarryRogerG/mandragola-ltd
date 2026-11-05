@@ -1,11 +1,14 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { Building2, Compass, Handshake, LineChart, type LucideIcon } from "lucide-react";
+import { motion } from "framer-motion";
+import { Box, Building2, Compass, Handshake, LineChart, Scale, Target, type LucideIcon } from "lucide-react";
 import Image from "next/image";
+import type { ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
 import { Section } from "@/components/ui/Section";
+import { cn } from "@/lib/cn";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import type { AtmospherePhoto } from "@/content/images";
 import type { Feature } from "@/types/content";
 
@@ -16,35 +19,63 @@ const featureIcons: Record<string, LucideIcon> = {
   "Company Building": Building2,
   "Strategic Relationships": Handshake,
   "Opportunity Sourcing": Compass,
+  "Capital with Discipline": Scale,
+  "Relationships Before Transactions": Handshake,
+  "Judgment in Complexity": Compass,
+  "Out of the Box Solutions": Box,
+  "Execution as a Standard": Target,
 };
 
 type FeatureGridProps = {
   id: string;
+  sectionId?: string;
   eyebrow: string;
-  title: string;
+  title: ReactNode;
   items: readonly Feature[];
   images: readonly AtmospherePhoto[];
+  numbered?: boolean;
+  centerLast?: boolean;
+  spacing?: "default" | "compact" | "loose" | "snug";
+  /** Prefix for per-item DOM ids used by JSON-LD fragment identifiers. */
+  itemIdPrefix?: string;
 };
 
-export function FeatureGrid({ id, eyebrow, title, items, images }: FeatureGridProps) {
-  const reduceMotion = useReducedMotion();
+export function FeatureGrid({
+  id,
+  sectionId,
+  eyebrow,
+  title,
+  items,
+  images,
+  numbered = true,
+  centerLast = false,
+  spacing = "default",
+  itemIdPrefix,
+}: FeatureGridProps) {
+  const reduceMotion = usePrefersReducedMotion();
+  const lastIndex = items.length - 1;
 
   return (
-    <Section labelledBy={id} tone="ivory">
+    <Section id={sectionId} labelledBy={id} tone="ivory" spacing={spacing}>
       <div className="max-w-2xl">
         <Eyebrow>{eyebrow}</Eyebrow>
         <Heading level={2} id={id} className="mt-5">
           {title}
         </Heading>
       </div>
-      <ol className="mt-14 grid gap-5 md:grid-cols-2">
+      <ol className={cn("mt-14 grid gap-5", centerLast ? "md:grid-cols-4" : "md:grid-cols-2")}>
         {items.map((item, index) => {
           const Icon = featureIcons[item.title] ?? Compass;
           const image = images[index];
           return (
             <motion.li
+              id={itemIdPrefix ? `${itemIdPrefix}-${index + 1}` : undefined}
               key={item.title}
-              className="group relative overflow-hidden rounded-xl border border-line bg-paper"
+              className={cn(
+                "group relative overflow-hidden rounded-xl border border-line bg-paper",
+                centerLast && "md:col-span-2",
+                centerLast && index === lastIndex && "md:col-start-2",
+              )}
               initial={reduceMotion ? false : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
@@ -68,24 +99,32 @@ export function FeatureGrid({ id, eyebrow, title, items, images }: FeatureGridPr
                   />
                 </div>
               ) : null}
-              <article className="relative p-7 md:p-8">
+              <article className={cn("relative p-7 md:p-8", !numbered && "pt-6 md:pt-7")}>
                 <span
                   aria-hidden="true"
                   className="absolute inset-y-0 left-0 w-[3px] origin-top scale-y-0 bg-forest transition-transform duration-500 group-hover:scale-y-100 group-active:scale-y-100"
                 />
                 <div className="flex items-start justify-between gap-3">
-                  <span className="font-serif text-2xl font-light text-forest">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                  {numbered ? (
+                    <span className="font-serif text-2xl font-light text-forest">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  ) : (
+                    <h3 className="font-serif text-[1.65rem] font-normal leading-snug text-charcoal md:text-[1.85rem]">
+                      {item.title}
+                    </h3>
+                  )}
                   <Icon
                     aria-hidden="true"
-                    className="size-5 text-forest transition-transform duration-500 group-hover:scale-110"
+                    className="size-5 shrink-0 text-forest transition-transform duration-500 group-hover:scale-110"
                     strokeWidth={1.5}
                   />
                 </div>
-                <Heading level={3} className="mt-5">
-                  {item.title}
-                </Heading>
+                {numbered ? (
+                  <Heading level={3} className="mt-5">
+                    {item.title}
+                  </Heading>
+                ) : null}
                 <p className="mt-3 max-w-md leading-relaxed">{item.body}</p>
               </article>
             </motion.li>

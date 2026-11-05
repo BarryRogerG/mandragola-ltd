@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion, type Transition } from "framer-motion";
+import { motion, type Transition } from "framer-motion";
 import type { ReactNode } from "react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 const luxuryEase = [0.21, 0.47, 0.32, 0.98] as const;
 
@@ -17,19 +18,15 @@ type ScrollRevealProps = {
 };
 
 export function ScrollReveal({ children, className, delay = 0 }: ScrollRevealProps) {
-  const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
+  const reduceMotion = usePrefersReducedMotion();
 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 30 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ ...transition, delay }}
+      transition={reduceMotion ? { duration: 0 } : { ...transition, delay }}
     >
       {children}
     </motion.div>

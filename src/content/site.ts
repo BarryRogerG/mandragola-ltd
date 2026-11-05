@@ -54,10 +54,8 @@ export const footerCopy = {
 } as const;
 
 export const quickAccess = [
+  { label: "Home", href: "/" },
   { label: "Our Mission", href: "/our-mission" },
-  { label: "Expertise", href: officialPages.expertise, external: true },
-  { label: "Transactions", href: officialPages.transactions, external: true },
   { label: "Values", href: "/values" },
-  { label: "Articles", href: officialPages.articles, external: true },
-] as const;
+] as const satisfies readonly NavItem[];
 

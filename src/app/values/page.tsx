@@ -1,5 +1,6 @@
 import { PhilosophyHero } from "@/components/sections/PhilosophyHero";
-import { PrincipleSequence } from "@/components/sections/PrincipleSequence";
+import { FeatureGrid } from "@/components/sections/FeatureGrid";
+import { PinHashSection } from "@/components/layout/PinHashSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { photos, valuePhotos } from "@/content/images";
 import { valuesCopy, valuesMeta } from "@/content/values";
@@ -18,22 +19,32 @@ export default function ValuesPage() {
 
   return (
     <>
-      <article className="bg-[#0B0A09] text-[#CDBBA8]">
-        <PhilosophyHero eyebrow={hero.eyebrow} title={hero.title} crumbs={crumbs} image={photos.values} />
-        <PrincipleSequence
-          values={values}
-          quote={quote}
-          image={photos.officeLounge}
-          quoteImage={photos.sunLounge}
-        />
-      </article>
+      <PhilosophyHero eyebrow={hero.eyebrow} title={hero.title} crumbs={crumbs} image={photos.values} />
+      <PinHashSection id="values-content" />
+      <FeatureGrid
+        id="values-heading"
+        sectionId="values-content"
+        eyebrow={hero.eyebrow}
+        title={
+          <>
+            {quote.lines[0]}
+            <span className="block">{quote.lines[1]}</span>
+          </>
+        }
+        items={values}
+        images={valuePhotos}
+        numbered={false}
+        centerLast
+        spacing="snug"
+        itemIdPrefix="principle"
+      />
       <JsonLd
         items={[
           pageSchema({
             page: valuesMeta,
             crumbs,
             image: photos.values,
-            images: [photos.officeLounge, photos.sunLounge, ...valuePhotos],
+            images: valuePhotos,
           }),
           valuesListSchema(values, valuesMeta.path),
         ]}

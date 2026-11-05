@@ -18,10 +18,12 @@ function useOnceInView() {
   const visit = useRouteVisit();
   const [node, setNode] = useState<HTMLDivElement | null>(null);
   const [inView, setInView] = useState(false);
+  const [seenVisit, setSeenVisit] = useState(visit);
 
-  useEffect(() => {
+  if (seenVisit !== visit) {
+    setSeenVisit(visit);
     setInView(false);
-  }, [visit]);
+  }
 
   useEffect(() => {
     if (!node || inView) return;
@@ -47,10 +49,7 @@ function useCountUp(target: number, active: boolean, duration: number, delayMs: 
   const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (!active) {
-      setValue(0);
-      return;
-    }
+    if (!active) return;
 
     const reduced = prefersReducedMotion();
     const runFor = reduced ? 700 : duration;
@@ -58,7 +57,6 @@ function useCountUp(target: number, active: boolean, duration: number, delayMs: 
 
     let frame = 0;
     let startAt: number | null = null;
-    setValue(0);
 
     const tick = (now: number) => {
       if (startAt == null) startAt = now;
@@ -69,6 +67,7 @@ function useCountUp(target: number, active: boolean, duration: number, delayMs: 
     };
 
     const timeout = window.setTimeout(() => {
+      setValue(0);
       frame = requestAnimationFrame(tick);
     }, wait);
 
@@ -78,7 +77,7 @@ function useCountUp(target: number, active: boolean, duration: number, delayMs: 
     };
   }, [active, delayMs, duration, target]);
 
-  return value;
+  return active ? value : 0;
 }
 
 export function useStatDisplay(stat: Stat, delayMs = 0) {
@@ -101,7 +100,7 @@ export function AnimatedStat({ stat, delayMs = 0 }: AnimatedStatProps) {
         aria-hidden="true"
         className="absolute inset-y-4 left-0 w-[3px] origin-top scale-y-0 bg-forest transition-transform duration-500 group-hover:scale-y-100 group-active:scale-y-100"
       />
-      <dt className="mt-4 max-w-full text-[0.65rem] leading-5 font-medium tracking-[0.16em] text-mist uppercase sm:text-[0.7rem]">
+      <dt className="mt-4 max-w-full text-[0.65rem] leading-5 font-medium tracking-[0.16em] text-ink-soft uppercase sm:text-[0.7rem]">
         {stat.label}
       </dt>
       <dd
