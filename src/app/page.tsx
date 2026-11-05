@@ -73,7 +73,7 @@ export default function HomePage() {
         body={opportunity.body}
         image={photos.approach}
         actions={
-          <LinkButton href="/values#values-content" variant="invert">
+          <LinkButton href="/values" variant="invert">
             Discover our values
           </LinkButton>
         }
