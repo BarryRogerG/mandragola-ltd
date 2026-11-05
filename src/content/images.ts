@@ -83,12 +83,12 @@ export const photos = {
  */
 export const valuePhotos = [
   {
-    src: "/images/lounge-arched-niches.jpg",
-    alt: "Warm lounge with two dark arched niches, a round chair, and a pale circular table.",
-    width: 3648,
-    height: 5472,
-    credit: "Jason Leung / Unsplash",
-    sourceUrl: "https://unsplash.com/photos/zRBaFHC76zA",
+    src: "/images/marble-lobby-gold-screens.jpg",
+    alt: "Bright marble lobby with a sculpted reception desk, gold-framed lattice screens, a hanging light sculpture, and lounge seating.",
+    width: 3000,
+    height: 1800,
+    credit: "Aalo Lens / Unsplash",
+    sourceUrl: "https://unsplash.com/photos/Ey3xBOzagPY",
     licenseUrl: unsplashLicense,
   },
   {
